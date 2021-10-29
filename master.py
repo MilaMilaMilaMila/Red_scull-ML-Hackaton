@@ -11,7 +11,7 @@ def get_rectangle(points: list):
         maxi_y = max(maxi_y, y)
         mini_x = min(mini_x, x)
         mini_y = min(mini_y, y)
-    return (mini_x, maxi_x), (mini_y, maxi_y)
+    return [mini_x, maxi_x, mini_y, maxi_y]
 
 
 with open('train-all.csv', newline='') as csvfile:
@@ -27,4 +27,4 @@ with open('train-all.csv', newline='') as csvfile:
             load = json.loads('[' + data[2].replace('\\', '') + ']')
             for index in load:
                 rects.append(f"{get_rectangle(index['points'])}")
-            answriter.writerow([num, data[1], ' '.join(rects)])
+            answriter.writerow([num, data[1], '{' + '"points": [' + ', '.join(rects) + ']' + '}'])
