@@ -19,8 +19,9 @@ with open('train-all.csv', newline='') as csvfile:
     with open('train-all-rectangles.csv', 'w', newline='') as csvanswer:
         answriter = csv.writer(csvanswer, delimiter=',')
         answriter.writerow(['id', 'image', 'rectangles'])
-        i = 0
-        for data in trains:
+        for num,data in enumerate(trains):
+            if not num:
+                continue
             num = ''.join(data[0])
             rects = []
             load = json.loads('[' + data[2].replace('\\', '') + ']')
