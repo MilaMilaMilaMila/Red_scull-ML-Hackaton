@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+train/
+
 #IDEA
 .DS_Store
 .idea
