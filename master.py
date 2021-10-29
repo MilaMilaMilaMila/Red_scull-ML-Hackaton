@@ -2,6 +2,7 @@ import csv
 import json
 
 
+# this script parses the dataset csv source
 def get_rectangle(points: list):
     maxi_x, maxi_y = 0, 0
     mini_x, mini_y = 1, 1
@@ -19,7 +20,7 @@ with open('train-all.csv', newline='') as csvfile:
     with open('train-all-rectangles.csv', 'w', newline='') as csvanswer:
         answriter = csv.writer(csvanswer, delimiter=',')
         answriter.writerow(['id', 'image', 'rectangles'])
-        for num,data in enumerate(trains):
+        for num, data in enumerate(trains):
             if not num:
                 continue
             num = ''.join(data[0])
