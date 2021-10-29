@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 train/
+cutted/
 
 #IDEA
 .DS_Store
