@@ -3,7 +3,7 @@ import json
 from PIL import Image
 
 
-# before start, you should create two directories
+# before start, you should have three directories
 # train/ (with photos from the drone)
 # cutted/ (directory for the positive result)
 # leaved/ (directory for the negative result)
@@ -27,7 +27,8 @@ class HeapOfGarbage:
         return False
 
 
-def cut_rest(filename, coords: list):
+def cut_rest(n, filepath, coords: list):
+    filename = get_image_address(filepath)
     im = Image.open(f"train/{filename}")
     sizex, sizey = im.size
     heap = HeapOfGarbage(*coords, sizex, sizey)
@@ -39,7 +40,13 @@ def cut_rest(filename, coords: list):
             if (mini_x, mini_y, maxi_x, maxi_y) not in heap:
                 cropped_im = im.crop((mini_x, mini_y, maxi_x, maxi_y))
                 cropped_im.save(f"leaved/{filename.split('.')[0]}-CUT_terrace-{counter}.{filename.split('.')[1]}")
+                """
+                csvout = open('train-all-terrace.csv', 'a', newline='')
+                answriter = csv.writer(csvout, delimiter=',')
+                answriter.writerow([str(n), filepath, '[' + f'{mini_x}, {maxi_x}, {mini_y}, {maxi_y}' + ']'])
+                csvout.close()
                 counter += 1
+                """
     im.close()
 
 
@@ -53,6 +60,12 @@ def cut_garbage(filename, coords: list, number_of_heap):
 
 
 with open('train-all-rectangles.csv', 'r', newline='') as csvfile:
+    """
+    csvout = open('train-all-terrace.csv', 'w', newline='')
+    answriter = csv.writer(csvout, delimiter=',')
+    answriter.writerow(['id', 'image', 'square'])
+    csvout.close()
+    """
     imgs = csv.reader(csvfile, delimiter=',')
     get_image_address = lambda x: x.split('/')[-1]
     for num, img in enumerate(imgs):
@@ -62,4 +75,5 @@ with open('train-all-rectangles.csv', 'r', newline='') as csvfile:
         for n, heap in enumerate(data['points']):
             cut_garbage(get_image_address(img[1]), heap, n)
         if len(data['points']) == 1:
-            cut_rest(get_image_address(img[1]), data['points'][0])
+            cut_rest(num, img[1], data['points'][0])
+
