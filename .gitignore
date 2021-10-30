@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Libs
+Mask_RCNN/
+datasets/
+
 # Distribution / packaging
 .Python
 build/
