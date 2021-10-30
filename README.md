@@ -1,3 +1,2 @@
 # Red_scull-ML-Hackaton
-
-ZISRF's develop branch
+Develop branch of ZISRF (senior PowerPoint developer)
