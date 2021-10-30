@@ -10,6 +10,11 @@ train/
 cutted/
 leaved/
 
+train-all-rectangles-prettify.csv
+train-all-rectangles.csv
+train-all-terrace.csv
+train-all.csv
+
 #IDEA
 .DS_Store
 .idea
