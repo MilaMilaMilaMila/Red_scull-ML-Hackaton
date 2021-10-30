@@ -10,6 +10,7 @@ train/
 cutted/
 leaved/
 
+dataset_cutted_garbage.zip
 train-all-rectangles-prettify.csv
 train-all-rectangles.csv
 train-all-terrace.csv
