@@ -10,6 +10,19 @@ from PIL import Image
 class HeapOfGarbage:
     def __init__(self, minx, maxx, miny, maxy, width, height):
         self.coordinates = (minx * width, miny * height, maxx * width, maxy * height)
+        self.width = width
+        self.height = height
+
+    def to_square(self):
+        minx, miny, maxx, maxy = self.coordinates
+        deltax, deltay = maxx - minx, maxy - miny
+        delta_diff = abs(deltax - deltay)
+        if deltax > deltay:
+            maxy, miny = (maxy + delta_diff, miny) if maxy + delta_diff <= self.height else (maxy, miny - delta_diff)
+        else:
+            maxx, minx = (maxx+delta_diff, minx) if maxx + delta_diff <= self.width else (maxx, minx - delta_diff)
+
+        self.coordinates = minx, miny, maxx, maxy
 
     def __contains__(self, item):
         if item[2] > self.coordinates[0] > item[0] and item[3] > self.coordinates[1] > item[1]:
@@ -53,6 +66,7 @@ def cut_rest(n, filepath, coords: list):
 def cut_garbage(filename, coords: list, number_of_heap):
     im = Image.open(f"train/{filename}")
     heap = HeapOfGarbage(*coords, *im.size)
+    heap.to_square()
     cropped_im = im.crop(heap.coordinates)
     name, ext = filename.split('.')
     cropped_im.save(f"cutted/{name}-CUT_garbage-{number_of_heap + 1}.{ext}")
@@ -74,6 +88,5 @@ with open('train-all-rectangles.csv', 'r', newline='') as csvfile:
         data = json.loads(img[2])
         for n, heap in enumerate(data['points']):
             cut_garbage(get_image_address(img[1]), heap, n)
-        if len(data['points']) == 1:
-            cut_rest(num, img[1], data['points'][0])
-
+        # if len(data['points']) == 1:
+        # cut_rest(num, img[1], data['points'][0])
