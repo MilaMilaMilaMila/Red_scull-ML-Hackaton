@@ -33,6 +33,15 @@ jupyter notebook
 
 Для подготовки датасета - запустить `garbage.ipynb`, а для запуска обучения - `training.ipynb`
 
+## Конфигурация библиотек, на которой работало
+Python 3.8.10 (venv)
+- Keras - 2.0.8 (параллельно был установлен keras-nightly - 2.5.0)
+- opencv-python - 4.5.4.58
+- Pillow - 8.4.0
+- pycocotools - 2.0.2
+- scikit-image - 0.16.2
+- tensorflow-gpu - 2.5.0
+
 
 ## Для работы с CUDA ускорением
 Страница с подробными инструкциями от самой [tensorflow тут](https://www.tensorflow.org/install/gpu?hl=ur), которые актуальны для последней версии. Новые версии при установке `pip install tensorflow` автоматически ставят и библиотеку для GPU, однако для версий 1.15 и старше библиотеки поставляются отдельно.
